@@ -7,6 +7,7 @@ const app = express();
 const port = 3000;
 const cors = require("cors");
 const searchSong = require("./lib/searchSong");
+const getSongById = require('./lib/getSongById')
 app.use(cors());
 
 app.use(bodyParser.json());
@@ -54,15 +55,25 @@ app.post("/", async (req, res) => {
 });
 
 app.post("/lyrics", async (req, res) => {
+  console.log("req.body : ", req.body);
+  console.log("song id : ",req.body.songId);
   const options = {
+    id: req.body.songId,
     apiKey: "rqJLvAfvBfA-2sm7daZxqwqoGEVIAO6__uMFuE3WsUrkx5Na0N_X2WpwsR-kipmW",
     title: req.body.song,
     artist: req.body.artist,
     optimizeQuery: true,
   };
-  const song = await getSong(options);
-  console.log(song);
-  res.json(song);
+  let id = req.body.songId;
+  let apiKey =  "rqJLvAfvBfA-2sm7daZxqwqoGEVIAO6__uMFuE3WsUrkx5Na0N_X2WpwsR-kipmW";
+  try{
+    const song = await getSongById(id, apiKey);
+    console.log(song);
+    res.json(song);
+  }catch(e){
+    res.send("Some error occurred");
+    console.log(e);
+  }
 })
 
 app.listen(port, () => {

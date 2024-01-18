@@ -16,17 +16,26 @@
 <body>
     <div id="container">
         <p id="tempMessage">Please wait while data is loading ......</p>
-    </div>
+    </div> 
     <div id="suggestions">
 
     </div>
     <script>
         let data = JSON.parse(localStorage.getItem("data"));
+        console.log(data.id);
+        
+        function extractArtistName(inputString) {
+            const regex = /by\s(.+)$/; // 
+            const match = inputString.match(regex);
+            if (match && match[1]) { return match[1].trim(); } else { return "Artist not found"; }
+        }
+
+        
         const fetchAndDisplay = async (data) => {
             tempMessage.style.display = 'none';
 
             let songInput = data.title;
-            let artistInput = data.artist;
+            let artistInput = extractArtistName(data.title);
             const response = await fetch('http://localhost:3000/lyrics', {
                 method: 'POST',
                 headers: {
@@ -35,6 +44,7 @@
                 body: JSON.stringify({
                     song: songInput,
                     artist: artistInput || " ",
+                    songId: data.id,
                 }),
             });
             let displayData = await response.json();
@@ -58,12 +68,7 @@
         }
         fetchAndDisplay(data);
     
-        function extractArtistName(inputString) {
-            const regex = /by\s(.+)$/; // 
-            const match = inputString.match(regex);
-            if (match && match[1]) { return match[1].trim(); } else { return "Artist not found"; }
-        }
-
+    
         
         async function showSuggestions(data) {
             let artistInput = extractArtistName(data.title);
@@ -78,7 +83,7 @@
                     song: " ",
                     artist: artistInput || " ",
                 }),
-            });
+            });                                                                                                                                         
 
             let suggestions = await response.json();
             console.log("suggestions : " , suggestions);
