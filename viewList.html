@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        #container{
+            display: flex;
+            width: 99vw;
+            /* flex-direction: column; */
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .songListItems{
+            background-color: black;
+            color: white;
+            font-family: sans-serif;
+            width: 30vw;
+            margin: 10px;
+            border-radius: 20px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .songListItems > p{
+            font-size: 1.3rem;
+            font-weight: bolder;
+            text-align: center;
+            width: 80%;
+            margin: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">Items That matched your search..</h1>
+    <div id="container">
+
+    </div>
+<script>
+    let data = localStorage.getItem("dataList");
+    let temp = JSON.parse(data);
+    console.log(temp);
+    // container.innerText = `${data}`;
+    viewSongList(temp);
+    function viewSongList(data) {
+    let container = document.getElementById("container");
+    data.forEach((element) => {
+        let newElement = document.createElement("div");
+        newElement.classList.add("songListItems");
+        newElement.addEventListener("click", () => {
+            console.log("you clicked ", element.title);
+            let lyricElement = JSON.stringify(element);
+            localStorage.setItem("data", lyricElement);
+            window.location.href = "./viewLyrics.html";
+        });
+        newElement.innerHTML = `
+          <p>${element.title} </p>
+          <img src="${element.albumArt}" style="height:100px; width:100px;">
+        `;
+        container.appendChild(newElement);
+    });
+}
+</script>
+</body>
+
+</html>

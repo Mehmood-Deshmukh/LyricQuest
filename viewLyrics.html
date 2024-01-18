@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .square {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <p id="tempMessage">Please wait while data is loading ......</p>
+    </div>
+    <div id="suggestions">
+
+    </div>
+    <script>
+        let data = JSON.parse(localStorage.getItem("data"));
+        const fetchAndDisplay = async (data) => {
+            tempMessage.style.display = 'none';
+
+            let songInput = data.title;
+            let artistInput = data.artist;
+            const response = await fetch('http://localhost:3000/lyrics', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    song: songInput,
+                    artist: artistInput || " ",
+                }),
+            });
+            let displayData = await response.json();
+            console.log(displayData);
+            let container = document.getElementById('container');
+            
+            let title = document.createElement('h1');
+            title.textContent = `${displayData.title}`;
+            container.appendChild(title);
+            
+            let albumArt = document.createElement('img');
+            albumArt.setAttribute('src', `${displayData.albumArt}`);
+            albumArt.classList.add('square');
+            container.appendChild(albumArt);
+            
+            let lyric = displayData.lyrics.replace(/\n/g, '<br>');
+            
+            let lyricContainer = document.createElement('p');
+            lyricContainer.innerHTML = `${lyric}`;
+            container.appendChild(lyricContainer);
+        }
+        fetchAndDisplay(data);
+    
+        function extractArtistName(inputString) {
+            const regex = /by\s(.+)$/; // 
+            const match = inputString.match(regex);
+            if (match && match[1]) { return match[1].trim(); } else { return "Artist not found"; }
+        }
+
+        
+        async function showSuggestions(data) {
+            let artistInput = extractArtistName(data.title);
+            console.log(artistInput);
+
+            const response = await fetch('http://localhost:3000/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    song: " ",
+                    artist: artistInput || " ",
+                }),
+            });
+
+            let suggestions = await response.json();
+            console.log("suggestions : " , suggestions);
+            let len = suggestions.length;
+            let suggestionsContainer = document.getElementById('suggestions');
+
+            for(let i = 0; i < suggestions.length; i++){
+                if(suggestions[i].title == data.title){
+                    suggestions.splice(i, 1);
+                }
+                else{
+                    let suggestion = document.createElement('div');
+                    suggestion.innerHTML = `
+                    <p>${suggestions[i].title}</p>
+                    <img src='${suggestions[i].albumArt}' style="height:50px; width:50px">
+                    `;
+                    suggestion.classList.add("suggestionElement");
+                    suggestionsContainer.appendChild(suggestion);
+                }
+            }
+            console.log("suggestions after deletion : ", suggestions);
+
+
+        }
+        showSuggestions(data);
+    </script>
+</body>
+
+</html>
