@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lyrics App</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+      body {
+        color: white;
+        margin: 0;
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        font-family: "Bebas Neue", sans-serif;
+        overflow: scroll;
+      }
+      .main {
+        display: flex;
+        flex-direction: row;
+        gap: 1%;
+        height: 90%;
+        width: 90%;
+      }
+      .square {
+        width: 100px;
+        height: 100px;
+      }
+      .container {
+        /* max-height: 600px; */
+        /* min-height: 600px; */
+        height: fit-content;
+        /* width: 90vw; */
+        display: flex;
+        flex-direction: row;
+        gap: 10%;
+        /* margin: 0 auto; */
+        backdrop-filter: blur(7px) saturate(180%);
+        -webkit-backdrop-filter: blur(7px) saturate(180%);
+        background-color: rgba(198, 211, 236, 0.358);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        padding: 5vh 5vw;
+        border-radius: 10px;
+        box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
+      }
+      .lyric1 {
+        display: flex;
+        flex-direction: column;
+        min-width: 20vw;
+      }
+      #gradient-canvas {
+        position: fixed;
+        min-height: 100vh;
+        z-index: -1;
+        --gradient-color-1: #4a4949;
+        --gradient-color-2: #65e22f;
+        --gradient-color-3: #1a1b1a;
+        --gradient-color-4: #000000;
+      }
+      #suggestions {
+        display: none;
+        flex-direction: column;
+      }
+      ::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .main{
+    flex-direction: column;
+  }
+  h1{
+    font-size: 20px;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <canvas id="gradient-canvas" data-transition-in></canvas>
+    <div class="main" id="main">
+      <div id="container" class="container">
+        <div>
+          <p id="tempMessage">Please wait while data is loading ......</p>
+        </div>
+      </div>
+      <div id="suggestions" class="container"></div>
+    </div>
+    <script src="./gradient.js"></script>
+    <script>
+      let data = JSON.parse(localStorage.getItem("data"));
+      const fetchAndDisplay = async (data) => {
+        const tempMessage = document.getElementById("tempMessage");
+
+        let songInput = data.title;
+        let artistInput = data.artist;
+        const response = await fetch("http://localhost:3000/lyrics", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            song: songInput,
+            artist: artistInput || " ",
+            songId: data.id,
+          }),
+        });
+        let displayData = await response.json();
+        console.log(displayData);
+
+        tempMessage.style.display = "none";
+        let container = document.getElementById("container");
+        let songContainer = document.createElement("div");
+        songContainer.classList.add("lyric1");
+        let title = document.createElement("h1");
+        title.textContent = `${displayData.title}`;
+        console.log(container);
+        console.log(title);
+        songContainer.appendChild(title);
+
+        let albumArt = document.createElement("img");
+        albumArt.setAttribute("src", `${displayData.albumArt}`);
+        albumArt.classList.add("square");
+        songContainer.appendChild(albumArt);
+
+        let lyric = displayData.lyrics.replace(/\n/g, "<br>");
+        var totalLength = lyric.length;
+        var halfLength = Math.ceil(totalLength / 2);
+        var firstPart = lyric.substring(0, halfLength);
+        var secondPart = lyric.substring(halfLength);
+        let lyricContainer1 = document.createElement("p");
+        lyricContainer1.innerHTML = `${firstPart}`;
+        songContainer.appendChild(lyricContainer1);
+        container.appendChild(songContainer);
+        let lyricContainer2 = document.createElement("p");
+        lyricContainer2.innerHTML = `${secondPart}`;
+        let lyricContainer2Container = document.createElement('div');
+        lyricContainer2Container.classList.add("lyric1")
+        lyricContainer2Container.appendChild(lyricContainer2);
+        container.appendChild(lyricContainer2Container);
+        showSuggestions(data);
+      };
+
+      fetchAndDisplay(data);
+      function extractArtistName(inputString) {
+        const regex = /by\s(.+)$/; //
+        const match = inputString.match(regex);
+        if (match && match[1]) {
+          return match[1].trim();
+        } else {
+          return "Artist not found";
+        }
+      }
+
+      async function showSuggestions(data) {
+        let artistInput = extractArtistName(data.title);
+        console.log(artistInput);
+
+        const response = await fetch("http://localhost:3000/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            song: " ",
+            artist: artistInput || " ",
+          }),
+        });
+
+        let suggestions = await response.json();
+        console.log("suggestions : ", suggestions);
+        let len = suggestions.length;
+        let suggestionsContainer = document.createElement("div");
+        suggestionsContainer.classList.add("container");
+        suggestionsContainer.id = "suggestions";
+        suggestionsContainer.style.display = "flex";
+        let heading = document.createElement("h1");
+        heading.textContent = "More from the Artist";
+        suggestionsContainer.appendChild(heading);
+        for (let i = 0; i < suggestions.length; i++) {
+          if (suggestions[i].title == data.title) {
+            suggestions.splice(i, 1);
+          } else {
+            let suggestion = document.createElement("div");
+            suggestion.innerHTML = `
+                    <p>${suggestions[i].title}</p>
+                    <img src='${suggestions[i].albumArt}' style="height:50px; width:50px">
+                    `;
+            suggestion.classList.add("suggestionElement");
+            suggestion.addEventListener("click", () => {
+              console.log("you clicked ", suggestions[i].title);
+              let lyricElement = JSON.stringify(suggestions[i]);
+              localStorage.setItem("data", lyricElement);
+              window.location.href = "./lyrics.html";
+            });
+            let main = document.getElementById("main");
+            suggestionsContainer.appendChild(suggestion);
+            main.appendChild(suggestionsContainer);
+          }
+        }
+        console.log("suggestions after deletion : ", suggestions);
+      }
+    </script>
+  </body>
+</html>

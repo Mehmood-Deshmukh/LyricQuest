@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lyrics App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <canvas id="gradient-canvas"data-transition-in></canvas>
+    <div class="container">
+      <h1>Lyrics App</h1>
+      <div>
+        <label for="songInput">Song:</label>
+        <input type="text" id="songInput" placeholder="Enter song title" />
+      </div>
+      <div>
+        <label for="artistInput">Artist:</label>
+        <input type="text" id="artistInput" placeholder="Enter artist name" />
+      </div>
+      <button onclick="getLyrics()">Get Lyrics</button>
+      <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+    <script src="./gradient.js"></script>
+  </body>
+</html>
