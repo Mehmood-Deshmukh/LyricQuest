@@ -42,7 +42,7 @@ body {
   }
   
   button {
-    background-color: #175814;
+    background-color: #000000;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -51,7 +51,7 @@ body {
   }
   
   button:hover {
-    background-color: #65e22f;
+    background-color: #4a4949;
   }
 
 
