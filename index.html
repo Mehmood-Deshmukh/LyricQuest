@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lyrics App</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      #temp{
+        display: none;
+      }
+    </style>
   </head>
   <body>
+    <div class="container" id="temp"><p id="tempMessage">Please wait while data is loading ......</p></div>
     <canvas id="gradient-canvas"data-transition-in></canvas>
     <div class="container">
       <h1>Lyrics App</h1>
@@ -18,6 +24,7 @@
         <label for="artistInput">Artist:</label>
         <input type="text" id="artistInput" placeholder="Enter artist name" />
       </div>
+
       <button onclick="getLyrics()">Get Lyrics</button>
       <div id="result"></div>
     </div>
