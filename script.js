@@ -1,7 +1,8 @@
 async function getLyrics() {
+  const temp = document.getElementById('temp');
+  temp.style.display = 'flex';
     const songInput = document.getElementById('songInput').value;
     const artistInput = document.getElementById('artistInput').value || ' ';
-  
     const response = await fetch('http://localhost:3000/', {
       method: 'POST',
       headers: {
