@@ -16,7 +16,7 @@ function extractArtistName(inputString) {
 
 let data = JSON.parse(localStorage.getItem("data"));
 const fetchAndDisplay = async (data) => {
-  const tempMessage = document.getElementById("tempMessage");
+  // const tempMessage = document.getElementById("temp");
 
   let songInput = data.title;
   let artistInput = data.artist;
@@ -107,13 +107,14 @@ const fetchAndDisplay = async (data) => {
     // songContainer.appendChild(spotify);
 
 
-    let lyric = displayData.lyrics.replace(/\n/g, "<br>");
+    var lyric = displayData.lyrics.replace(/\n/g, "<br>");
     var totalLength = lyric.length;
     var halfLength = Math.ceil(totalLength / 2);
 
-    if (window.innerWidth <= 330) {
+    if (window.innerWidth <= 400) {
       firstPart = lyric;
       secondPart = "";
+      // console.log("secondpart is "  +secondPart);
     } else {
       var firstPart = lyric.substring(0, halfLength);
       var secondPart = lyric.substring(halfLength);
@@ -196,11 +197,11 @@ async function showSuggestions(data) {
     }
   }
   console.log("suggestions after deletion : ", suggestions);
-  let tempMessage = document.getElementById('tempMessage');
+  // let tempMessage = document.getElementById('tempMessage');
   let temp = document.getElementById('temp');
   setTimeout(container.style.display = "flex", 1000);
-  tempMessage.style.display = "none"
-  temp.style.display = "none"
+  // tempMessage.style.display = "none";
+  temp.style.display = "none";
 }
 fetchAndDisplay(data);
 
