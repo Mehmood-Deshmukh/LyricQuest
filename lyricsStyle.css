@@ -172,15 +172,16 @@ h1 {
 
 #backBtn {
     position: absolute;
-    left: 100px;
-    top: 18px;
-    width: 50px;
-    background-color: transparent;
-    border: 1px solid white;
-    border-radius: 5px;
-    padding: 5px;
-    color: white;
-    font-family: "Signika", sans-serif;
+  left: 100px;
+  top: 20px;
+  width: 60px;
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 8px;
+  color: white;
+  font-family: "Signika", sans-serif;
+  font-size: 1rem;
 }
 
 #backBtn:hover {
@@ -327,6 +328,14 @@ h1 {
         flex-direction: column;
     }
 
+    .lyric1 p{
+        margin-left: 50px;
+    }
+
+    #firstPartLyrics{
+        margin-left: 0;
+    }
+
     #backBtn {
         left: 50px;
     }
@@ -366,7 +375,10 @@ h1 {
     #playCard {
         padding: 5px;
     }
-
+    
+    #backBtn{
+        left: 22px;
+    }
     .credits>h2 {
         font-size: 1rem;
         margin: 5px;
@@ -383,7 +395,13 @@ h1 {
         width: fit-content;
         height: fit-content;
     }
-
+    .lyric1 p{
+        margin-left: 0;
+    }
+    #firstPart>p{
+        margin-right: 15px;
+        margin-left: 0;
+    }
 
     #backBtn {
         left: 20px;

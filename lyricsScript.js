@@ -119,6 +119,7 @@ const fetchAndDisplay = async (data) => {
       var secondPart = lyric.substring(halfLength);
     }
     let lyricContainer1 = document.createElement("p");
+    lyricContainer1.setAttribute("id", "firstPartLyrics");
     lyricContainer1.innerHTML = `${firstPart}`;
     songContainer.appendChild(lyricContainer1);
     container.appendChild(songContainer);
