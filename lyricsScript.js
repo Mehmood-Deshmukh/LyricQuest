@@ -36,7 +36,7 @@ const fetchAndDisplay = async (data) => {
     res.send("No such song found");
   }
   else {
-    console.log(displayData);
+    console.log("displaydata:"+displayData);
     let container = document.getElementById("container");
     container.style.display = 'none'
     let songContainer = document.createElement("div");
@@ -44,8 +44,8 @@ const fetchAndDisplay = async (data) => {
     songContainer.id = "firstpart";
     let title = document.createElement("h1");
     title.textContent = `${displayData.title}`;
-    console.log(container);
-    console.log(title);
+    console.log("container:"+container);
+    console.log("title"+title);
     songContainer.appendChild(title);
 
     function extractSongName(title) {
