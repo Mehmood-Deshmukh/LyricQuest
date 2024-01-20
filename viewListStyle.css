@@ -5,7 +5,7 @@ body {
   display: flex;
   align-items: center;
   height: 100vh;
-  width: 100vw;
+  width: 99vw;
   display: flex;
   flex-direction: column;
   font-family: "Bebas Neue", sans-serif;
@@ -15,8 +15,24 @@ body {
   margin-bottom: 10vh;
   margin-top: 10vh;
   color: white;
+  text-align: center;
+}
+#backBtn {
+  position: absolute;
+  left: 100px;
+  top: 18px;
+  width: 50px;
+  background-color: transparent;
+  border: 1px solid white;
+  padding: 5px;
+  color: white;
 }
 
+#backBtn:hover{
+  cursor: pointer;
+  background-color: white;
+  color: black;
+}
 .container {
   /* /* height: 100vh; */
   width: 90vw;
@@ -180,4 +196,16 @@ p {
   --gradient-color-2: #65e22f;
   --gradient-color-3: #1a1b1a;
   --gradient-color-4: #000000;
+}
+
+@media (max-width: 690px) {
+  #backBtn{
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 20px;
+  }
+  .heading{
+    margin-top: 3vh;
+  }
 }

@@ -16,7 +16,12 @@ async function getLyrics() {
   
     const data = await response.json();
     // displayResult(data);
-    let dataToBeSent = JSON.stringify(data);
+    let dataToBeSent;
+    if(data.error){
+      dataToBeSent = data.error;  
+    }else{
+      dataToBeSent = JSON.stringify(data);
+    }
     localStorage.setItem("dataList", dataToBeSent);
     window.location.href = "./viewList.html";
   }

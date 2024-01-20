@@ -1,117 +1,413 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lyrics App</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
-      body {
-        color: white;
-        margin: 0;
-        background-color: transparent;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-        width: 100vw;
-        display: flex;
-        flex-direction: column;
-        font-family: "Bebas Neue", sans-serif;
-        overflow: scroll;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lyrics App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tirhuta&family=Poppins:wght@700&display=swap"
+    rel="stylesheet">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+    body {
+      color: white;
+      margin: 0;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      /* justify-content: center; */
+      /* height: 100vh; */
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      font-family: "Bebas Neue", sans-serif;
+      overflow: scroll;
+
+    }
+
+    .main {
+      display: flex;
+      flex-direction: row;
+      /* align-items: center; */
+      justify-content: center;
+      gap: 1%;
+      height: fit-content;
+      width: 90vw;
+      margin: 50px;
+
+    }
+
+    .square {
+      width: 100px;
+      height: 100px;
+      margin: auto;
+    }
+
+    .suggestionElement {
+      display: flex;
+      width: 90%;
+      align-items: center;
+      height: fit-content;
+      background-color: #000000ba;
+      margin: 5px;
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    .suggestionElement img {
+      margin: 0px 10px;
+      margin-right: 27px;
+    }
+
+    .suggestionElement:hover {
+      cursor: pointer;
+    }
+
+    .container {
+      /* max-height: 600px; */
+      /* min-height: 600px; */
+      height: fit-content;
+      width: 90vw;
+      display: flex;
+      flex-direction: row;
+      gap: 10%;
+      margin: 0 auto;
+      backdrop-filter: blur(7px) saturate(180%);
+      -webkit-backdrop-filter: blur(7px) saturate(180%);
+      background-color: rgba(198, 211, 236, 0.358);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.125);
+      padding: 5vh 5vw;
+      border-radius: 10px;
+      box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
+      margin-bottom: 50px;
+      justify-content: center;
+    }
+
+    .lyric1 {
+      display: flex;
+      flex-direction: column;
+      min-width: 20vw;
+      padding: 1%;
+    }
+
+    #gradient-canvas {
+      position: fixed;
+      min-height: 100vh;
+      z-index: -1;
+      --gradient-color-1: #4a4949;
+      --gradient-color-2: #65e22f;
+      --gradient-color-3: #1a1b1a;
+      --gradient-color-4: #000000;
+    }
+
+    #suggestions {
+      display: none;
+      flex-direction: column;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    #searchForm {
+      width: 50vw;
+      height: 5vh;
+      /* background-color: black; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    #searchForm * {
+      padding: 8px;
+      background-color: rgba(38, 38, 38, 0.461);
+      color: white;
+      border: 1px solid white;
+      border-radius: 5px;
+      margin: 5px;
+    }
+
+    #searchForm input {
+      width: 60%;
+    }
+
+    #searchForm button i {
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    #backBtn {
+      position: absolute;
+      left: 100px;
+      top: 18px;
+      width: 50px;
+      background-color: transparent;
+      border: 1px solid white;
+      padding: 5px;
+      color: white;
+    }
+
+    #backBtn:hover {
+      cursor: pointer;
+      background-color: white;
+      color: black;
+    }
+
+
+
+    #spotifyLink {
+      text-decoration: none;
+      display: flex;
+      /* align-items: center; */
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      /* font-weight: bold; */
+      color: rgb(45, 190, 45);
+      font-size: 1.1rem;
+    }
+
+    #spotifyLink i {
+      color: rgb(45, 190, 45);
+      margin: 3px;
+    }
+
+
+    #spotify {
+      margin: 15px auto;
+      padding: 8px;
+      background-color: black;
+      border: 0;
+      text-align: left;
+      color: rgb(45, 190, 45);
+      border-radius: 5;
+      /* margin-left: 0px; */
+      text-align: left;
+      width: 64%;
+      border-radius: 4px;
+
+
+    }
+
+    #spotify:hover {
+      cursor: pointer;
+    }
+
+    #playCard {
+      position: relative;
+      height: fit-content;
+      width: 250px;
+      background-color: #111111c0;
+      color: white;
+      display: none;
+      flex-direction: column;
+      /* align-items: center; */
+      justify-content: center;
+      padding: 20px;
+      font-family: sans-serif;
+      border-radius: 8px;
+    }
+
+    #playCard>img,
+    .cardContent>img {
+      /* height: 100px; */
+      width: 100px;
+      object-fit: cover;
+      margin: 15px;
+    }
+
+    .cardContent {
+      display: flex;
+      justify-content: center;
+      align-items: start;
+    }
+
+    .credits{
+      margin-bottom: 15px;
+    }
+    .credits>h2 {
+      text-align: left;
+      width: 80%;
+      margin: 15px;
+    }
+
+
+   .credits>p {
+      width: 80%;
+      color: grey;
+      margin: 5px;
+    }
+
+    .cardContent button {
+      position: absolute;
+      opacity: 0%;
+      bottom: 25px;
+      right: 25px;
+      width: 50px;
+      height: 50px;
+      padding: 7px;
+      border-radius: 50%;
+      border: 0;
+      background-color: rgba(50, 233, 50);
+      transition: all 0.5s;
+    }
+
+    .cardContent button>i {
+      font-size: 1.2rem;
+    }
+
+    #playCard:hover {
+      cursor: pointer;
+    }
+
+    #playCard:hover .playBtn {
+      opacity: 100%;
+    }
+
+    @media (max-width: 1200px) {
+      
+      #playCard{
+        width: 85%;
       }
+
+      .playBtn{
+        opacity: 100%;
+      }
+
+      .cardContent{
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 760px) {
       .main {
-        display: flex;
-        flex-direction: row;
-        gap: 1%;
-        height: 90%;
-        width: 90%;
+        flex-direction: column;
       }
-      .square {
-        width: 100px;
-        height: 100px;
+
+      #backBtn {
+        left: 50px;
       }
+
       .container {
-        /* max-height: 600px; */
-        /* min-height: 600px; */
-        height: fit-content;
-        /* width: 90vw; */
-        display: flex;
-        flex-direction: row;
-        /* gap: 10%; */
-        /* margin: 0 auto; */
-        backdrop-filter: blur(7px) saturate(180%);
-        -webkit-backdrop-filter: blur(7px) saturate(180%);
-        background-color: rgba(198, 211, 236, 0.358);
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.125);
-        padding: 5vh 5vw;
-        border-radius: 10px;
-        box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
+        width: 80vw;
       }
-      .lyric1 {
-        display: flex;
-        flex-direction: column;
-        min-width: 20vw;
-        padding: 1%;
+
+      h1 {
+        font-size: 20px;
       }
-      #gradient-canvas {
-        position: fixed;
-        min-height: 100vh;
-        z-index: -1;
-        --gradient-color-1: #4a4949;
-        --gradient-color-2: #65e22f;
-        --gradient-color-3: #1a1b1a;
-        --gradient-color-4: #000000;
-      }
+
       #suggestions {
-        display: none;
+        gap: 0;
+      }
+
+      #albumArtCard{
+        width: 85%;
+      }
+
+      #playCard img,
+      .cardContent{
+        margin-left: 5px;
+      }
+
+    }
+
+    @media (max-width: 400px) {
+      #backBtn {
+        left: 20px;
+      }
+
+    }
+
+    @media (max-width: 330px) {
+      #container {
         flex-direction: column;
       }
-      ::-webkit-scrollbar {
-  display: none;
-}
 
-@media (max-width: 760px) {
-  .main{
-    flex-direction: column;
-  }
-  h1{
-    font-size: 20px;
-  }
-}
-    </style>
-  </head>
-  <body>
-    <canvas id="gradient-canvas" data-transition-in></canvas>
-    <div class="main" id="main">
-      <div id="container" class="container">
-        <div>
-          <p id="tempMessage">Please wait while data is loading ......</p>
-        </div>
+      #backBtn {
+        left: 5px;
+      }
+
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+  <button id="backBtn">Back</button>
+  <canvas id="gradient-canvas" data-transition-in></canvas>
+
+  <form id="searchForm">
+    <input type="text" id="songInput" placeholder="Search a song...">
+    <button type="button" id="searchBtn"><i class="fas fa-search"></i></button>
+  </form>
+  <div class="main" id="main">
+    <div id="container" class="container">
+      <div>
+        <p id="tempMessage">Please wait while data is loading ......</p>
       </div>
-      <div id="suggestions" class="container"></div>
-    </div>
-    <script src="./gradient.js"></script>
-    <script>
-      let data = JSON.parse(localStorage.getItem("data"));
-      const fetchAndDisplay = async (data) => {
-        const tempMessage = document.getElementById("tempMessage");
+      <div id="playCard">
+        <img src="Gallery/spotifyLogo.png" alt="">
 
-        let songInput = data.title;
-        let artistInput = data.artist;
-        const response = await fetch("http://localhost:3000/lyrics", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            song: songInput,
-            artist: artistInput || " ",
-            songId: data.id,
-          }),
-        });
-        let displayData = await response.json();
+        <div class="cardContent">
+          <img id="albumArtCard" src="" alt="albumArt">
+          <div class="credits">
+            <h2></h2>
+            <p></p>
+          </div>
+          <button class="playBtn"><i class="fa fa-solid fa-play"></i></button>
+        </div>
+
+      </div>
+    </div>
+    <div id="suggestions" class="container">
+
+    </div>
+  </div>
+  <script src="./gradient.js"></script>
+  <script>
+
+    let backBtn = document.getElementById('backBtn');
+    backBtn.addEventListener("click", () => {
+      history.back();
+    })
+
+    function extractArtistName(inputString) {
+      const regex = /by\s(.+)$/; //
+      const match = inputString.match(regex);
+      if (match && match[1]) {
+        return match[1].trim();
+      } else {
+        return "Artist not found";
+      }
+    }
+
+    let data = JSON.parse(localStorage.getItem("data"));
+    const fetchAndDisplay = async (data) => {
+      const tempMessage = document.getElementById("tempMessage");
+
+      let songInput = data.title;
+      let artistInput = data.artist;
+      const response = await fetch("http://localhost:3000/lyrics", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          song: songInput,
+          artist: artistInput || " ",
+          songId: data.id,
+        }),
+      });
+      let displayData = await response.json();
+      if (displayData.error) {
+        res.send("No such song found");
+      }
+      else {
         console.log(displayData);
 
         tempMessage.style.display = "none";
@@ -124,88 +420,197 @@
         console.log(title);
         songContainer.appendChild(title);
 
-        let albumArt = document.createElement("img");
-        albumArt.setAttribute("src", `${displayData.albumArt}`);
-        albumArt.classList.add("square");
-        songContainer.appendChild(albumArt);
+        function extractSongName(title) {
+          // Define a regular expression pattern to match the title format
+          const pattern = /(.+) by/;
+
+          // Use the pattern to extract song name and artist name
+          const matches = title.match(pattern);
+          console.log(matches);
+          // Check if there are matches and return the song name (group 1 in the regex)
+          return matches ? matches[1] : null;
+        }
+
+        // Example usage:
+        const songName = extractSongName(displayData.title);
+
+        if (songName) {
+          console.log("Song Name:", songName);
+        } else {
+          console.log("Invalid title format");
+        }
+        // let albumArt = document.createElement("img");
+        // albumArt.setAttribute("src", `${displayData.albumArt}`);
+
+
+        // albumArt.classList.add("square");
+        // songContainer.appendChild(albumArt);
+
+        // let spotify = document.createElement("a");
+        // spotify.innerHTML = "spotify";
+        // spotify.setAttribute("href", url);
+        let url = "https://open.spotify.com/search/" + displayData.title.replace(/\s/g, "%20");
+        console.log(url);
+
+        let playCard = document.getElementById('playCard');
+
+        let albumArtCard = document.getElementById('albumArtCard');
+        albumArtCard.setAttribute("src", `${displayData.albumArt}`);
+
+        document.querySelector(".credits > h2").textContent = `${songName}`;
+
+        let artist = extractArtistName(displayData.title);
+        document.querySelector(".credits p").textContent = `${artist}`;
+
+        document.querySelector(".cardContent button").addEventListener("click", () => {
+          window.location.href= url;
+        })
+
+        songContainer.appendChild(playCard)
+        playCard.style.display = "flex";
+
+
+
+        // let spotify = document.createElement("button");
+        // spotify.setAttribute("id", "spotify");
+        // let url = "https://open.spotify.com/search/" + displayData.title.replace(/\s/g, "%20");
+        // spotify.innerHTML = `<a href="${url}" id="spotifyLink" target="_blank"> <i style="font-size: 1.2rem;" class="fa fas fa-brands fa-spotify"></i>Open in spotify</a>`;
+        // console.log(url);
+        // songContainer.appendChild(spotify);
+
 
         let lyric = displayData.lyrics.replace(/\n/g, "<br>");
         var totalLength = lyric.length;
         var halfLength = Math.ceil(totalLength / 2);
-        var firstPart = lyric.substring(0, halfLength);
-        var secondPart = lyric.substring(halfLength);
+
+        if (window.innerWidth <= 330) {
+          firstPart = lyric;
+          secondPart = "";
+        } else {
+          var firstPart = lyric.substring(0, halfLength);
+          var secondPart = lyric.substring(halfLength);
+        }
         let lyricContainer1 = document.createElement("p");
         lyricContainer1.innerHTML = `${firstPart}`;
         songContainer.appendChild(lyricContainer1);
         container.appendChild(songContainer);
+
         let lyricContainer2 = document.createElement("p");
         lyricContainer2.innerHTML = `${secondPart}`;
+
         let lyricContainer2Container = document.createElement('div');
         lyricContainer2Container.classList.add("lyric1")
         lyricContainer2Container.appendChild(lyricContainer2);
         container.appendChild(lyricContainer2Container);
         showSuggestions(data);
-      };
+      }
+    };
 
-      fetchAndDisplay(data);
-      function extractArtistName(inputString) {
-        const regex = /by\s(.+)$/; //
-        const match = inputString.match(regex);
-        if (match && match[1]) {
-          return match[1].trim();
+    window.addEventListener("resize", () => {
+      if (window.innerWidth <= 330) {
+        firstPart = lyric;
+        secondPart = "";
+      } else {
+        var firstPart = lyric.substring(0, halfLength);
+        var secondPart = lyric.substring(halfLength);
+      }
+    })
+
+
+
+
+    async function showSuggestions(data) {
+      let artistInput = extractArtistName(data.title);
+      console.log(artistInput);
+
+      const response = await fetch("http://localhost:3000/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          song: " ",
+          artist: artistInput || " ",
+        }),
+      });
+
+      let suggestions = await response.json();
+      console.log("suggestions : ", suggestions);
+      let len = suggestions.length;
+      let suggestionsContainer = document.createElement("div");
+      suggestionsContainer.classList.add("container");
+      suggestionsContainer.id = "suggestions";
+      suggestionsContainer.style.display = "flex";
+      let heading = document.createElement("h1");
+      heading.textContent = "More from the Artist";
+      suggestionsContainer.appendChild(heading);
+      for (let i = 0; i < suggestions.length; i++) {
+        if (suggestions[i].title == data.title) {
+          suggestions.splice(i, 1);
         } else {
-          return "Artist not found";
-        }
-      }
-
-      async function showSuggestions(data) {
-        let artistInput = extractArtistName(data.title);
-        console.log(artistInput);
-
-        const response = await fetch("http://localhost:3000/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            song: " ",
-            artist: artistInput || " ",
-          }),
-        });
-
-        let suggestions = await response.json();
-        console.log("suggestions : ", suggestions);
-        let len = suggestions.length;
-        let suggestionsContainer = document.createElement("div");
-        suggestionsContainer.classList.add("container");
-        suggestionsContainer.id = "suggestions";
-        suggestionsContainer.style.display = "flex";
-        let heading = document.createElement("h1");
-        heading.textContent = "More from the Artist";
-        suggestionsContainer.appendChild(heading);
-        for (let i = 0; i < suggestions.length; i++) {
-          if (suggestions[i].title == data.title) {
-            suggestions.splice(i, 1);
-          } else {
-            let suggestion = document.createElement("div");
-            suggestion.innerHTML = `
-                    <p>${suggestions[i].title}</p>
+          let suggestion = document.createElement("div");
+          suggestion.innerHTML = `
                     <img src='${suggestions[i].albumArt}' style="height:50px; width:50px">
+                    <p>${suggestions[i].title}</p>
                     `;
-            suggestion.classList.add("suggestionElement");
-            suggestion.addEventListener("click", () => {
-              console.log("you clicked ", suggestions[i].title);
-              let lyricElement = JSON.stringify(suggestions[i]);
-              localStorage.setItem("data", lyricElement);
-              window.location.href = "./lyrics.html";
-            });
-            let main = document.getElementById("main");
-            suggestionsContainer.appendChild(suggestion);
-            main.appendChild(suggestionsContainer);
-          }
+          suggestion.classList.add("suggestionElement");
+          suggestion.addEventListener("click", () => {
+            console.log("you clicked ", suggestions[i].title);
+            let lyricElement = JSON.stringify(suggestions[i]);
+            localStorage.setItem("data", lyricElement);
+            window.location.href = "./lyrics.html";
+          });
+          let main = document.getElementById("main");
+          suggestionsContainer.appendChild(suggestion);
+          main.appendChild(suggestionsContainer);
         }
-        console.log("suggestions after deletion : ", suggestions);
       }
-    </script>
-  </body>
+      console.log("suggestions after deletion : ", suggestions);
+    }
+    fetchAndDisplay(data);
+
+
+    async function getLyrics() {
+      console.log("getLyrics is running....")
+      // const temp = document.getElementById('temp');
+      // temp.style.display = 'flex';
+      const songInput = document.getElementById('songInput').value;
+      console.log("songInput : ", songInput);
+      // const artistInput = document.getElementById('artistInput').value || ' ';
+      const response = await fetch('http://localhost:3000/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          song: songInput,
+          artist: " ",
+        }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+
+      // displayResult(data);
+      let dataToBeSent;
+      if (data.error) {
+        dataToBeSent = data.error;
+      } else {
+        dataToBeSent = JSON.stringify(data);
+      }
+      localStorage.setItem("dataList", dataToBeSent);
+      console.log("control reaches here");
+      window.location.href = "./viewList.html";
+    }
+
+    let searchButton = document.getElementById('searchBtn');
+    searchButton.addEventListener("click", () => {
+      console.log("you clicked search button");
+      getLyrics();
+    }
+    );
+
+  </script>
+</body>
+
 </html>

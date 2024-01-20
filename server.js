@@ -22,36 +22,31 @@ app.post("/", async (req, res) => {
     artist: req.body.artist,
     optimizeQuery: true,
   };
-  const song = await searchSong(options);
-  // let songs = song.filter((s) => s.title.strartsWith(req.body.song))
-  // console.log(songs);
-  let perfectMatch = [];
-  // let index = 0;
-  let suggest = []; 
-  for(let i = 0; i < song.length; i++){
-    if(song[i].title.startsWith(req.body.song)){
-      console.log("perfect match song title : ", song[i].title);
-      perfectMatch.push(song[i]);
-    }else{
-      suggest.push(song[i]);
-    }
+  try{
+    const song = await searchSong(options);
+      let perfectMatch = [];
+    
+      let suggest = []; 
+      for(let i = 0; i < song.length; i++){
+        if(song[i].title.startsWith(req.body.song)){
+          console.log("perfect match song title : ", song[i].title);
+          perfectMatch.push(song[i]);
+        }else{
+          suggest.push(song[i]);
+        }
+      }
+    
+      console.log("perfect match : ", perfectMatch);
+      let songs = perfectMatch.concat(suggest);
+      console.log("song : ");
+      console.log("song original array : ", song);
+    
+      console.log("Final array: ", songs);
+      
+      res.json(songs);
+  }catch(error){
+    res.json({error: "No songs found that match your search request...."})
   }
-  // song.forEach((s) => {
-  //   if(s.title.startsWith(req.body.song)){
-  //     console.log(s.title);
-  //     perfectMatch.push(song.pop(s));
-  //   }
-  // })
-  // console.log(perfectMatch);
-  // console.log(suggest);
-  console.log("perfect match : ", perfectMatch);
-  let songs = perfectMatch.concat(suggest);
-  console.log("song : ");
-  console.log("song original array : ", song);
-
-  console.log("Final array: ", songs);
-  // console.log(typeof JSON.stringify(songs)); 
-  res.json(songs);
 });
 
 app.post("/lyrics", async (req, res) => {
@@ -71,7 +66,7 @@ app.post("/lyrics", async (req, res) => {
     console.log(song);
     res.json(song);
   }catch(e){
-    res.send("Some error occurred");
+    res.json("error: No such song");
     console.log(e);
   }
 })
