@@ -1,0 +1,421 @@
+@import url('https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap');
+
+body {
+    color: white;
+    margin: 0;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    /* height: 100vh; */
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    font-family: "Signika", sans-serif;
+    overflow: scroll;
+
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    justify-content: center;
+    gap: 1%;
+    height: fit-content;
+    width: 90vw;
+    margin: 50px;
+
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+}
+
+.suggestionElement {
+    display: flex;
+    width: 90%;
+    align-items: center;
+    height: fit-content;
+    background-color: #000000ba;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.suggestionElement img {
+    margin: 0px 10px;
+    margin-right: 27px;
+}
+
+.suggestionElement:hover {
+    cursor: pointer;
+    box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.6);
+}
+
+h1 {
+    word-wrap: break-word;
+}
+
+.container {
+    /* max-height: 600px; */
+    /* min-height: 600px; */
+    height: fit-content;
+    width: 90vw;
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+    margin: 0 auto;
+    backdrop-filter: blur(7px) saturate(180%);
+    -webkit-backdrop-filter: blur(7px) saturate(180%);
+    background-color: rgba(198, 211, 236, 0.358);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    padding: 5vh 5vw;
+    border-radius: 10px;
+    box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
+    margin-bottom: 50px;
+    justify-content: center;
+}
+
+#container {
+    display: none;
+}
+
+.lyric1 {
+    display: flex;
+    flex-direction: column;
+    min-width: 20vw;
+    padding: 1%;
+}
+
+#gradient-canvas {
+    position: fixed;
+    min-height: 100vh;
+    z-index: -1;
+    --gradient-color-1: #4a4949;
+    --gradient-color-2: #65e22f;
+    --gradient-color-3: #1a1b1a;
+    --gradient-color-4: #000000;
+}
+
+#suggestions {
+    display: none;
+    flex-direction: column;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+#searchForm {
+    width: 50vw;
+    height: 5vh;
+    /* background-color: black; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+#searchForm * {
+    padding: 8px;
+    background-color: rgba(38, 38, 38, 0.461);
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    margin-top: 20px;
+    font-size: 1rem;
+}
+
+#searchForm input {
+    width: 60%;
+    margin-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#searchForm button i {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+
+
+#searchForm button {
+    background-color: transparent;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: 0;
+    border-left: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 60px;
+    padding: 8px;
+}
+
+#searchForm button:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+#searchForm button:hover #searchIcon {
+    color: black;
+}
+
+
+
+
+#backBtn {
+    position: absolute;
+    left: 100px;
+    top: 18px;
+    width: 50px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    font-family: "Signika", sans-serif;
+}
+
+#backBtn:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+
+
+#spotifyLink {
+    text-decoration: none;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    font-family: "Signika", sans-serif;
+    /* font-weight: bold; */
+    color: rgb(45, 190, 45);
+    font-size: 1.1rem;
+}
+
+#spotifyLink i {
+    color: rgb(45, 190, 45);
+    margin: 3px;
+}
+
+
+#spotify {
+    margin: 15px auto;
+    padding: 8px;
+    background-color: black;
+    border: 0;
+    text-align: left;
+    color: rgb(45, 190, 45);
+    border-radius: 5;
+    /* margin-left: 0px; */
+    text-align: left;
+    width: 64%;
+    border-radius: 4px;
+
+
+}
+
+#spotify:hover {
+    cursor: pointer;
+}
+
+#playCard {
+    position: relative;
+    overflow: hidden;
+    height: fit-content;
+    width: 22vw;
+    background-color: #111111c0;
+    color: white;
+    display: none;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    padding: 10px;
+    font-family: sans-serif;
+    border-radius: 8px;
+}
+
+#playCard>img,
+.cardContent>img {
+    /* height: 100px; */
+    width: 100px;
+    object-fit: cover;
+    margin: 15px;
+}
+
+.cardContent>img {
+    box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+
+.cardContent {
+    display: flex;
+    /* justify-content: center; */
+    align-items: start;
+}
+
+.credits {
+    margin-bottom: 15px;
+    font-family: "Signika", sans-serif;
+    width: 80%;
+}
+
+.credits>h2 {
+    text-align: left;
+    width: 85%;
+    margin: 5px;
+    margin-top: 15px;
+}
+
+
+.credits>p {
+    width: 80%;
+    color: grey;
+    margin: 5px;
+}
+
+.cardContent button {
+    position: absolute;
+    opacity: 0%;
+    bottom: 25px;
+    right: 25px;
+    width: 50px;
+    height: 50px;
+    padding: 7px;
+    border-radius: 50%;
+    border: 0;
+    background-color: rgba(50, 233, 50);
+    transition: all 0.5s;
+}
+
+.cardContent button>i {
+    font-size: 1.2rem;
+}
+
+#playCard:hover {
+    cursor: pointer;
+}
+
+#playCard:hover .playBtn {
+    opacity: 100%;
+}
+
+@media (max-width: 1200px) {
+
+    #playCard {
+        width: 85%;
+    }
+
+
+
+    .cardContent {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 760px) {
+    .main {
+        flex-direction: column;
+    }
+
+    #backBtn {
+        left: 50px;
+    }
+
+    .container {
+        width: 80vw;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+        word-wrap: break-word;
+    }
+
+    #suggestions {
+        gap: 0;
+    }
+
+    #albumArtCard {
+        width: 78%;
+    }
+
+    #playCard {
+        width: 30vw;
+    }
+
+    #playCard img,
+    .cardContent {
+        margin-left: 5px;
+    }
+
+    .container {
+        gap: 0;
+    }
+}
+
+@media (max-width: 500px) {
+    #playCard {
+        padding: 5px;
+    }
+
+    .credits>h2 {
+        font-size: 1rem;
+        margin: 5px;
+    }
+
+    .credits>p {
+        font-size: 0.9rem;
+        margin: 5px;
+    }
+}
+
+@media (max-width: 400px) {
+    #playCard {
+        width: fit-content;
+        height: fit-content;
+    }
+
+
+    #backBtn {
+        left: 20px;
+    }
+
+    #searchForm {
+        margin-left: 10vw;
+    }
+
+
+    .container {
+        gap: 0;
+    }
+
+    #firstpart {
+        margin-right: 30px;
+    }
+}
+
+@media (max-width: 330px) {
+    #container {
+        flex-direction: column;
+    }
+
+    #backBtn {
+        left: 5px;
+    }
+
+    #searchForm {
+        margin-left: 10vw;
+    }
+
+
+
+}

@@ -93,6 +93,10 @@ body {
   }
 }
 
+.panel:hover{
+  cursor: pointer;
+}
+
 .ring,
 .card,
 .border,
@@ -122,6 +126,10 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 
+}
+
+.card:hover{
+  cursor: pointer;
 }
 
 .ring:before,
