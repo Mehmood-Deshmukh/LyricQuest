@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lyrics App</title>
+  <title>LyricQuest</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tirhuta&family=Poppins:wght@700&display=swap"
     rel="stylesheet">
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Signika:wght@300..700&display=swap');
 
     body {
       color: white;
@@ -23,7 +23,7 @@
       width: 100vw;
       display: flex;
       flex-direction: column;
-      font-family: "Bebas Neue", sans-serif;
+      font-family: "Salsa", cursive;
       overflow: scroll;
 
     }
@@ -64,6 +64,7 @@
 
     .suggestionElement:hover {
       cursor: pointer;
+      box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.6);
     }
 
     .container {
@@ -85,6 +86,10 @@
       box-shadow: 0 20px 40px rgba(38, 33, 61, 0.2);
       margin-bottom: 50px;
       justify-content: center;
+    }
+
+    #container{
+      display: none;
     }
 
     .lyric1 {
@@ -140,7 +145,12 @@
       border: 0;
       padding: 0;
       margin: 0;
+      background-color: #3b6c26;
     }
+    #searchForm button {
+      background-color: #3b6c26;
+    }
+
 
     #backBtn {
       position: absolute;
@@ -149,8 +159,10 @@
       width: 50px;
       background-color: transparent;
       border: 1px solid white;
+      border-radius: 5px;
       padding: 5px;
       color: white;
+      font-family: "Salsa", cursive;
     }
 
     #backBtn:hover {
@@ -166,7 +178,7 @@
       display: flex;
       /* align-items: center; */
       justify-content: center;
-      font-family: 'Montserrat', sans-serif;
+      font-family: "Salsa", cursive;
       /* font-weight: bold; */
       color: rgb(45, 190, 45);
       font-size: 1.1rem;
@@ -221,6 +233,11 @@
       margin: 15px;
     }
 
+    .cardContent > img{
+      box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
+    }
+
     .cardContent {
       display: flex;
       justify-content: center;
@@ -229,6 +246,7 @@
 
     .credits{
       margin-bottom: 15px;
+      font-family: "Salsa", cursive;
     }
     .credits>h2 {
       text-align: left;
@@ -275,9 +293,7 @@
         width: 85%;
       }
 
-      .playBtn{
-        opacity: 100%;
-      }
+      
 
       .cardContent{
         flex-direction: column;
@@ -309,18 +325,38 @@
         width: 85%;
       }
 
+      #playCard{
+        width: 28vw;
+      }
+
       #playCard img,
       .cardContent{
         margin-left: 5px;
       }
+      
 
+    
+      .container{
+        gap: 0;
+      }
     }
 
     @media (max-width: 400px) {
       #backBtn {
         left: 20px;
       }
+      #searchForm{
+        margin-left: 10vw;
+      }
+    
 
+      .container{
+        gap: 0;
+      }
+
+      #firstpart{
+        margin-right: 30px;
+      }
     }
 
     @media (max-width: 330px) {
@@ -331,6 +367,11 @@
       #backBtn {
         left: 5px;
       }
+      #searchForm{
+        margin-left: 10vw;
+      }
+
+    
 
     }
   </style>
@@ -341,15 +382,16 @@
   <button id="backBtn">Back</button>
   <canvas id="gradient-canvas" data-transition-in></canvas>
 
-  <form id="searchForm">
+  <form id="searchForm" >
     <input type="text" id="songInput" placeholder="Search a song...">
     <button type="button" id="searchBtn"><i class="fas fa-search"></i></button>
   </form>
   <div class="main" id="main">
+    <div class="container" id="temp">
+      <p id="tempMessage">Please wait while data is loading ......</p>
+    </div>
     <div id="container" class="container">
-      <div>
-        <p id="tempMessage">Please wait while data is loading ......</p>
-      </div>
+      
       <div id="playCard">
         <img src="Gallery/spotifyLogo.png" alt="">
 
@@ -409,11 +451,11 @@
       }
       else {
         console.log(displayData);
-
-        tempMessage.style.display = "none";
         let container = document.getElementById("container");
+        container.style.display = 'none'
         let songContainer = document.createElement("div");
         songContainer.classList.add("lyric1");
+        songContainer.id = "firstpart";
         let title = document.createElement("h1");
         title.textContent = `${displayData.title}`;
         console.log(container);
@@ -521,6 +563,7 @@
 
     async function showSuggestions(data) {
       let artistInput = extractArtistName(data.title);
+      let container = document.getElementById('container')
       console.log(artistInput);
 
       const response = await fetch("http://localhost:3000/", {
@@ -566,6 +609,11 @@
         }
       }
       console.log("suggestions after deletion : ", suggestions);
+      let tempMessage = document.getElementById('tempMessage');
+      let temp = document.getElementById('temp');
+      setTimeout(container.style.display = "flex" , 1000);
+      tempMessage.style.display = "none"
+      temp.style.display = "none"
     }
     fetchAndDisplay(data);
 
