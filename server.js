@@ -4,6 +4,7 @@ const axios = require("axios");
 const getLyrics = require("./lib/getLyrics");
 const getSong = require("./lib/getSong");
 const app = express();
+require('dotenv').config();
 const port = 3000;
 const cors = require("cors");
 const searchSong = require("./lib/searchSong");
@@ -17,7 +18,7 @@ app.get("/", (req, res) => {
 });
 app.post("/", async (req, res) => {
   const options = {
-    apiKey: "rqJLvAfvBfA-2sm7daZxqwqoGEVIAO6__uMFuE3WsUrkx5Na0N_X2WpwsR-kipmW",
+    apiKey: process.env.KEY,
     title: req.body.song,
     artist: req.body.artist,
     optimizeQuery: true,
@@ -54,13 +55,13 @@ app.post("/lyrics", async (req, res) => {
   console.log("song id : ",req.body.songId);
   const options = {
     id: req.body.songId,
-    apiKey: "rqJLvAfvBfA-2sm7daZxqwqoGEVIAO6__uMFuE3WsUrkx5Na0N_X2WpwsR-kipmW",
+    apiKey: process.env.KEY,
     title: req.body.song,
     artist: req.body.artist,
     optimizeQuery: true,
   };
   let id = req.body.songId;
-  let apiKey =  "rqJLvAfvBfA-2sm7daZxqwqoGEVIAO6__uMFuE3WsUrkx5Na0N_X2WpwsR-kipmW";
+  let apiKey =  process.env.KEY;
   try{
     const song = await getSongById(id, apiKey);
     console.log(song);
