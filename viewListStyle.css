@@ -9,7 +9,7 @@ body {
   width: 100vw;
   display: flex;
   flex-direction: column;
-  font-family: "Salsa", sans-serif;
+  font-family: "Signika", sans-serif;
 }
 
 ::-webkit-scrollbar{
@@ -151,7 +151,7 @@ body {
 p {
   text-align: center;
   position: absolute;
-  font-family: "Salsa", sans-serif;
+  font-family: "Signika", sans-serif;
 }
 
 .title {
@@ -164,7 +164,7 @@ p {
 .para {
   bottom: 0;
   font-size: 16px;
-  font-family: "Salsa", sans-serif;
+  font-family: "Signika", sans-serif;
   padding: 20px;
   margin: 0;
   text-align: center;
