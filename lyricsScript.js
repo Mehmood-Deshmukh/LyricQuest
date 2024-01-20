@@ -20,7 +20,7 @@ const fetchAndDisplay = async (data) => {
 
   let songInput = data.title;
   let artistInput = data.artist;
-  const response = await fetch("https://eager-clam-top-coat.cyclic.app/", {
+  const response = await fetch("https://eager-clam-top-coat.cyclic.app/lyrics", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
