@@ -111,7 +111,7 @@ const fetchAndDisplay = async (data) => {
     var totalLength = lyric.length;
     var halfLength = Math.ceil(totalLength / 2);
 
-    if (window.innerWidth <= 400) {
+    if (window.innerWidth <= 600) {
       firstPart = lyric;
       secondPart = "";
       // console.log("secondpart is "  +secondPart);
