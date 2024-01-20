@@ -1,52 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LyricQuest</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tirhuta&family=Poppins:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="lyricsStyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LyricQuest</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tirhuta&family=Poppins:wght@700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="lyricsStyle.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
+  <body>
+    <button id="backBtn"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+    <canvas id="gradient-canvas" data-transition-in></canvas>
 
-<body>
-  <button id="backBtn">Back</button>
-  <canvas id="gradient-canvas" data-transition-in></canvas>
-
-  <form id="searchForm">
-    <input type="text" id="songInput" placeholder="Search a song...">
-    <button type="button" id="searchBtn"><i id="searchIcon" class="fas fa-search"></i></button>
-  </form>
-  <div class="main" id="main">
-    <div class="container" id="temp">
-      <p id="tempMessage">Please wait while data is loading ......</p>
-    </div>
-    <div id="container" class="container">
-
-      <div id="playCard">
-        <img src="Gallery/spotifyLogo.png" alt="">
-
-        <div class="cardContent">
-          <img id="albumArtCard" src="" alt="albumArt">
-          <div class="credits">
-            <h2></h2>
-            <p></p>
-          </div>
-          <button class="playBtn"><i class="fa fa-solid fa-play"></i></button>
+    <form id="searchForm">
+      <input type="text" id="songInput" placeholder="Search a song..." />
+      <button type="button" id="searchBtn">
+        <i id="searchIcon" class="fas fa-search"></i>
+      </button>
+    </form>
+    <div class="main" id="main">
+      <div id="temp">
+        <div class="wrapper">
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
         </div>
-
       </div>
-    </div>
-    <div id="suggestions" class="container">
+      <div id="container" class="container">
+        <div id="playCard">
+          <img src="Gallery/spotifyLogo.png" alt="" />
 
+          <div class="cardContent">
+            <img id="albumArtCard" src="" alt="albumArt" />
+            <div class="credits">
+              <h2></h2>
+              <p></p>
+            </div>
+            <button class="playBtn"><i class="fa fa-solid fa-play"></i></button>
+          </div>
+        </div>
+      </div>
+      <div id="suggestions" class="container"></div>
     </div>
-  </div>
-  <script src="./gradient.js"></script>
-  <script src="./lyricsScript.js"></script>
-</body>
-
+    <script src="./gradient.js"></script>
+    <script src="./lyricsScript.js"></script>
+  </body>
 </html>
