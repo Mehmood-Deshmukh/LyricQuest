@@ -20,7 +20,7 @@ const fetchAndDisplay = async (data) => {
 
   let songInput = data.title;
   let artistInput = data.artist;
-  const response = await fetch("https://uptight-raincoat-wasp.cyclic.app/lyrics", {
+  const response = await fetch("https://eager-clam-top-coat.cyclic.app/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -154,7 +154,7 @@ async function showSuggestions(data) {
   let container = document.getElementById('container')
   console.log(artistInput);
 
-  const response = await fetch("https://uptight-raincoat-wasp.cyclic.app/", {
+  const response = await fetch("https://eager-clam-top-coat.cyclic.app/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -213,7 +213,7 @@ async function getLyrics() {
   const songInput = document.getElementById('songInput').value;
   console.log("songInput : ", songInput);
   // const artistInput = document.getElementById('artistInput').value || ' ';
-  const response = await fetch('https://uptight-raincoat-wasp.cyclic.app/', {
+  const response = await fetch('https://eager-clam-top-coat.cyclic.app/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
