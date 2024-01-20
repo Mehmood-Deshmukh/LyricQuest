@@ -3,7 +3,7 @@ async function getLyrics() {
   temp.style.display = 'flex';
     const songInput = document.getElementById('songInput').value;
     const artistInput = document.getElementById('artistInput').value || ' ';
-    const response = await fetch('https://uptight-raincoat-wasp.cyclic.app/', {
+    const response = await fetch('http://localhost:3000/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
