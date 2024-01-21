@@ -93,6 +93,7 @@ body {
   #temp{
     position: absolute;
     top: 3%;
+    display: none;
   }
 
   
