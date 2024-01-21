@@ -92,7 +92,7 @@ body {
 
   #temp{
     position: absolute;
-    top: 0;
+    top: 3%;
   }
 
   
@@ -106,14 +106,15 @@ body {
   }
    */
   .wrapper {
-    width: auto;
-    height: auto;
+    width: fit-content;
+    height: fit-content;
   }
   
   ul {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     animation: rot 16s linear infinite;
+    width: fit-content;
   }
   @keyframes rot {
     100% {
@@ -122,8 +123,8 @@ body {
   }
   
   li {
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
     background: #65e22f;
     border-radius: 4px;
     box-shadow: 0 0 1px #fff, 0 0 5px #65e22f, 0 0 10px #65e22f, 0 0 15px #65e22f, 0 0 25px #65e22f, 0 0 55px #65e22f;

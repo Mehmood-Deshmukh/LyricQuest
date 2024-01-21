@@ -105,13 +105,13 @@ const fetchAndDisplay = async (data) => {
     // spotify.innerHTML = `<a href="${url}" id="spotifyLink" target="_blank"> <i style="font-size: 1.2rem;" class="fa fas fa-brands fa-spotify"></i>Open in spotify</a>`;
     // console.log(url);
     // songContainer.appendChild(spotify);
-
+   
 
     var lyric = displayData.lyrics.replace(/\n/g, "<br>");
     var totalLength = lyric.length;
     var halfLength = Math.ceil(totalLength / 2);
 
-    if (window.innerWidth <= 600) {
+    if (window.innerWidth <= 500) {
       firstPart = lyric;
       secondPart = "";
       // console.log("secondpart is "  +secondPart);
@@ -129,22 +129,44 @@ const fetchAndDisplay = async (data) => {
     lyricContainer2.innerHTML = `${secondPart}`;
 
     let lyricContainer2Container = document.createElement('div');
-    lyricContainer2Container.classList.add("lyric1")
+    lyricContainer2Container.classList.add("lyric1");
+    lyricContainer2Container.setAttribute("id", "lyricContainer2");
+
     lyricContainer2Container.appendChild(lyricContainer2);
+
+    window.addEventListener("resize", () => {
+      let lyricsPart1 = firstPartLyrics.innerHTML;
+      let lyricsPart2 = lyricContainer2.innerHTML;
+      
+      if(window.innerWidth <= 500 && lyricsPart2 != ""){
+        // console.log("window.innerWidth: ", window.innerWidth);
+        firstPartLyrics.innerHTML = lyricsPart1.concat(lyricsPart2);
+        lyricContainer2.innerHTML = "";
+        // secondPart = "";
+      }else if(window.innerWidth > 500 && lyricsPart2 === ""){
+        let tempTotalLength = lyricsPart1.length;
+        let tempHalfLength = Math.ceil(tempTotalLength / 2);
+        lyricsPart2 = lyricsPart1.substring(tempHalfLength);
+        lyricsPart1 = lyricsPart1.substring(0, tempHalfLength);
+        firstPartLyrics.innerHTML = lyricsPart1;
+        lyricContainer2.innerHTML = lyricsPart2;
+      }
+    });
+
     container.appendChild(lyricContainer2Container);
     showSuggestions(data);
   }
 };
 
-window.addEventListener("resize", () => {
-  if (window.innerWidth <= 330) {
-    firstPart = lyric;
-    secondPart = "";
-  } else {
-    var firstPart = lyric.substring(0, halfLength);
-    var secondPart = lyric.substring(halfLength);
-  }
-})
+// window.addEventListener("resize", () => {
+//   if (window.innerWidth <= 330) {
+//     firstPart = lyric;
+//     secondPart = "";
+//   } else {
+//     var firstPart = lyric.substring(0, halfLength);
+//     var secondPart = lyric.substring(halfLength);
+//   }
+// })
 
 
 

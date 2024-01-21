@@ -103,6 +103,7 @@ h1 {
 #suggestions {
     display: none;
     flex-direction: column;
+    justify-content: start;
 }
 
 ::-webkit-scrollbar {
@@ -312,7 +313,7 @@ h1 {
 @media (max-width: 1200px) {
 
     #playCard {
-        width: 85%;
+        width: 80%;
     }
 
 
@@ -327,9 +328,13 @@ h1 {
         flex-direction: column;
     }
 
-    .lyric1 p{
-        margin-left: 50px;
+    .lyric1{
+      width: 50%;
+      margin: 0 17px;
     }
+    /* .lyric1 p{
+        margin-left: 50px;
+    } */
 
     #firstPartLyrics{
         margin-left: 0;
@@ -342,6 +347,8 @@ h1 {
     .container {
         width: 80vw;
     }
+
+    
 
     h1 {
         font-size: 1.2rem;
@@ -369,10 +376,15 @@ h1 {
         gap: 0;
     }
     #temp{
-        height: 30vh;
-        width: 20vw;
+        height: fit-content;
+        width: fit-content;
         /* position: absolute; */
-        margin-left: 25vw;
+        margin: auto;
+    }
+
+    .wrapper ul li{
+      height: 20px;
+      width: 20px;
     }
 }
 
@@ -380,7 +392,17 @@ h1 {
     #playCard {
         padding: 5px;
     }
+
+    #lyricContainer2{
+      display: none;
+    }
+
     
+
+    #firstpart{
+      width: 90%;
+    }
+
     #backBtn{
         left: 22px;
     }
@@ -393,25 +415,33 @@ h1 {
         font-size: 0.9rem;
         margin: 5px;
     }
-    #temp{
+   /* #temp{
         height: 30vh;
         width: 20vw;
-        /* position: absolute; */
         margin-left: 10vw;
     }
+    */
+    
 }
 
 @media (max-width: 400px) {
-    /* #playCard {
-        width: fit-content;
-        height: fit-content;
-    } */
+    #playCard {
+      margin: 15px auto;
+    }
+    
+
     .lyric1 p{
         margin-left: 0;
     }
-    #firstPart>p{
-        margin-right: 15px;
-        margin-left: 0;
+
+    #firstpart h1{
+      width: 85%;
+      margin: 10px auto;
+    }
+
+    #firstPartLyrics{
+      width: 85%;
+      margin: 10px auto;
     }
 
     #backBtn {
@@ -435,18 +465,22 @@ h1 {
     #firstpart {
         margin-right: 30px;
     }
-
+/* 
     #temp{
         height: 30vh;
         width: 20vw;
-        /* position: absolute; */
         margin-left: 10vw;
+    } */
+
+    #suggestionElement{
+      margin: 5px 3px;
     }
 }
 
 @media (max-width: 330px) {
     #container {
         flex-direction: column;
+        justify-content: flex-start;
     }
 
     #backBtn {
