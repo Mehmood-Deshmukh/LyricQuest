@@ -17,8 +17,7 @@ LyricQuest is an innovative API-based web application designed to fulfill your m
 - JavaScript
 - Node.js
 - Express.js
-## Deployed on
-- [vercel](https://lyricquests.vercel.app/)
+
 
 ## Getting Started
 
