@@ -20,7 +20,7 @@ const fetchAndDisplay = async (data) => {
 
   let songInput = data.title;
   let artistInput = data.artist;
-  const response = await fetch("/lyrics", {
+  const response = await fetch("http://localhost:3000/lyrics", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -176,7 +176,7 @@ async function showSuggestions(data) {
   let container = document.getElementById('container')
   console.log(artistInput);
 
-  const response = await fetch("/", {
+  const response = await fetch("http://localhost:3000/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -235,7 +235,7 @@ async function getLyrics() {
   const songInput = document.getElementById('songInput').value;
   console.log("songInput : ", songInput);
   // const artistInput = document.getElementById('artistInput').value || ' ';
-  const response = await fetch('/', {
+  const response = await fetch('http://localhost:3000/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -267,4 +267,3 @@ searchButton.addEventListener("click", () => {
   getLyrics();
 }
 );
-
