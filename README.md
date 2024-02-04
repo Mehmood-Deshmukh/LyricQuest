@@ -2,6 +2,9 @@
 
 LyricQuest is an innovative API-based web application designed to fulfill your musical curiosity. With a sleek and intuitive user interface built using HTML, CSS, and JavaScript, LyricQuest allows users to effortlessly retrieve lyrics for a specific song or explore the top songs of their favorite artist. Powered by Node.js and Express.js, this dynamic platform not only delivers accurate and up-to-date lyrics but also provides direct links to Spotify for a seamless listening experience. Dive into the world of music exploration with LyricQuest, where the harmony of technology and creativity brings lyrics and tunes together at your fingertips.
 
+## Deployed on
+- [vercel](https://lyric-quest.vercel.app/)
+
 ## Features
 
 - **Lyric Retrieval:** Input the name of a song, and LyricQuest fetches and displays the corresponding lyrics.
